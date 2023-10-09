@@ -1,0 +1,54 @@
+---
+title: "Trabajo Marco"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+## Enunciado
+
+Un agricultor tiene que decidir qué hortalizas plantar en su campo. Cada hortaliza lleva asociado un precio de venta (/kg), un número de unidades que pueden plantarse en el campo y un coeficiente que representa la supervivencia a un clima específico.
+
+```{r}
+vegetables <- data.frame(
+  name = c("Patata", "Tomate", "Berenjena", "Pimientos", "Calabacines", "Cebolla"),
+  price_per_kg = c(1.39, 2.40, 1.84, 3.12, 1.88, 1.86),
+  quantity = c(300, 240, 300, 400, 400, 300),
+  survival_coeff_clima1 = c(0.7, 0.3, 0.4, 0.5, 0.3, 0.9),
+  survival_coeff_clima2 = c(0.8, 0.5, 0.6, 0.7, 0.5, 0.8),
+  survival_coeff_clima3 = c(0.7, 0.8, 0.5, 0.6, 0.7, 07)
+)
+
+knitr::kable(vegetables)
+```
+
+En esa región hay cuatro condiciones climáticas posibles y no existe ningún modelo matemático en el que el agricultor pueda basarse para predecir el clima de la próxima temporada. Supongamos que el agricultor consigue vender todas las hortalizas que han sobrevivido en el momento de la cosecha.
+
+Clima1: frio 
+Clima2: medio
+Clima3: caliente
+
+## Resolucion
+Construcion de la tabla decision
+```{r}
+temp <- NULL
+table_per_lines <- c()
+
+for(i in 1:6){
+  temp <- unlist(vegetables[i,4:6]*vegetables[i,2]*vegetables[i,3])
+  names(temp) <- NULL
+  table_per_lines <- c(table_per_lines, temp)
+}
+```
+
+Resolucion
+```{r}
+source("../include/teoriadecision_funciones_incertidumbre.R")
+
+table <- crea.tablaX(table_per_lines, 
+                     numalternativas = 6,
+                     numestados = 3)
+
+criterio.Todos(table, alfa = 0.5)
+```
+
