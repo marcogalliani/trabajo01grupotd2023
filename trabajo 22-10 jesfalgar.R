@@ -1,5 +1,6 @@
+
 ### Problema: enunciado y solución hecho por todos los criterios de incertidumbre
-### Jesús Manuel Falcón García, grupo 5 TD
+### Jesús Manuel Falcón García, grupo TD
 
 ## ENUNCIADO:
 
@@ -110,10 +111,78 @@ decision.total
 #y por último con otro valor de alfa, esta vez 0.9, vemos que
 #prácticamente hay un empate entre FreeAutos y RedWheel
 
-
 ##Como conclusiones finales podemos decir que en general el 
 #concesionario Route100 es el peor mientras que RedWheel y FreeAutos están
 #prácticamente empatados como la mejor opción
+
+## Problema datos aleatorios:
+
+matriz2 = crea.tablaX(c(50, 100, 75,
+                        25, 75, 125,
+                        55, 80, 100), numalternativas = 3, numestados = 3)
+matriz2
+
+#primero lo resolvemos con todas las funciones suponiendo que se
+#trata de una matriz de beneficios
+
+decision1 = criterio.Hurwicz(matriz2, alfa = 0.5, favorable = T)
+decision1
+#la mejor decisión es la d3 alcanzando valor óptimo 77.5
+
+decision2 = criterio.Hurwicz.General(matriz2, alfa = 0.5, favorable = T)
+decision2
+#mismo resultado 
+
+decision3 = criterio.Laplace(matriz2, favorable = T)
+decision3
+#la mejor decisión es la d3 alcanzando valor óptimo 78.33
+
+decision4 = criterio.Optimista(matriz2, favorable = T)
+decision4
+#la mejor decisión es la d4 alcanzando valor óptimo 125
+
+decision5 = criterio.PuntoIdeal(matriz2, favorable = T)
+decision5
+#la mejor decisión es la d3 alcanzando valor óptimo 32.01562
+
+decision6 = criterio.Savage(matriz2, favorable = T)
+decision6
+#la mejor decisión es la d3 alcanzando valor óptimo 25
+
+decision7 = criterio.Wald(matriz2, favorable = T)
+decision7
+#la mejor decisión es la d3 alcanzando valor óptimo 55
+
+#ahora lo resolvemos suponiendo que se trata de una matriz de 
+#costes y no de beneficios
+
+decision1F = criterio.Hurwicz(matriz2, alfa = 0.5, favorable = F)
+decision1F
+#la mejor decisión es la d2 alcanzando valor óptimo 75
+
+decision2F = criterio.Hurwicz.General(matriz2, alfa = 0.5, favorable = F)
+decision2F
+#mismo resultado 
+
+decision3F = criterio.Laplace(matriz2, favorable = F)
+decision3F
+#la mejor decisión es la d2 alcanzando valor óptimo 75
+
+decision4F = criterio.Optimista(matriz2, favorable = F)
+decision4F
+#la mejor decisión es la d2 alcanzando valor óptimo 25
+
+decision5F = criterio.PuntoIdeal(matriz2, favorable = F)
+decision5F
+#la mejor decisión es la d1 alcanzando valor óptimo 35.35534
+
+decision6F = criterio.Savage(matriz2, favorable = F)
+decision6F
+#la mejor decisión es la d1 alcanzando valor óptimo 25
+
+decision7F = criterio.Wald(matriz2, favorable = F)
+decision7F
+#la mejor decisión es la d3 alcanzando valor óptimo 100
 
 
 
