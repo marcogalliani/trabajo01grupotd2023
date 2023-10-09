@@ -1,0 +1,42 @@
+---
+title: "Trabajo Marco: enunciados"
+output: html_document
+---
+
+## Problema 1
+
+```{r, echo=FALSE}
+source("../include/teoriadecision_funciones_incertidumbre.R")
+
+set.seed(05072000)
+
+n_states <- 11
+n_alternativas <- 5
+
+tabla1 <- crea.tablaX(rexp(n_states*n_alternativas), 
+                    numalternativas = n_alternativas,
+                    numestados = n_states)
+knitr::kable(tabla1)
+```
+
+
+
+## Problema 2
+
+Un agricultor di un remoto paesino ai piedi del volcan Vesuvio tiene que decidir qué hortalizas plantar en su campo. Cada hortaliza lleva asociado un precio de venta (€/kg), un número de unidades que pueden plantarse en el campo y un coeficiente que representa la probabilidad de supervivencia a un clima específico.
+
+```{r echo=FALSE}
+vegetables <- data.frame(
+  name = c("Patata", "Tomate", "Berenjena", "Pimientos", "Calabacines", "Cebolla"),
+  price_per_kg = c(1.39, 2.40, 1.84, 3.12, 1.88, 1.86),
+  quantity = c(300, 240, 300, 400, 400, 300),
+  survival_coeff_clima1 = c(0.7, 0.3, 0.4, 0.5, 0.3, 0.9),
+  survival_coeff_clima2 = c(0.8, 0.5, 0.6, 0.7, 0.5, 0.8),
+  survival_coeff_clima3 = c(0.7, 0.8, 0.5, 0.6, 0.7, 07)
+)
+
+knitr::kable(vegetables)
+```
+
+En esa región hay cuatro condiciones climáticas posibles y por el cambio climatico no existe ningún modelo matemático en el que el agricultor pueda basarse para predecir el clima de la próxima temporada. Supongamos que el agricultor consigue vender todas las hortalizas que han sobrevivido en el momento de la cosecha. Cual hortalizas tiene que plantar el agricultor para maximizar su ganancia?
+

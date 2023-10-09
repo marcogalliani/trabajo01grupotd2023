@@ -1,0 +1,120 @@
+---
+title: "Trabajo Marco: soluciones"
+output: 
+  html_document:
+    toc: TRUE
+---
+
+```{r setup, echo=FALSE}
+source("../include/teoriadecision_funciones_incertidumbre.R")
+```
+
+
+## Problema 1
+### Enunciado
+```{r}
+set.seed(05072000)
+
+n_states <- 11
+n_alternativas <- 5
+
+tabla1 <- crea.tablaX(rexp(n_states*n_alternativas), 
+                    numalternativas = n_alternativas,
+                    numestados = n_states)
+knitr::kable(tabla1)
+```
+
+### Solucion
+```{r}
+computing_crit_results <- function(tablaX, favorable, alfa){
+  crit_results <- list()
+  crit_results[["Wald"]] <- criterio.Wald(tablaX = tablaX, favorable = favorable)
+  crit_results[["Optimista"]] <- criterio.Optimista(tablaX = tablaX, favorable = favorable)
+  crit_results[["Hurwicz"]] <- criterio.Hurwicz(tablaX = tablaX, favorable = favorable,  alfa = alfa)
+  crit_results[["Laplace"]] <- criterio.Laplace(tablaX = tablaX, favorable = favorable)
+  crit_results[["Savage"]] <- criterio.Savage(tablaX = tablaX,favorable = favorable)
+  crit_results[["PuntoIdeal"]] <- criterio.PuntoIdeal(tablaX = tablaX, favorable = favorable)
+  return(crit_results)
+}
+```
+
+#### Beneficios
+
+```{r echo=TRUE}
+ES_FAVORABLE <- TRUE
+results <- computing_crit_results(tablaX = tabla1,
+                                  favorable = ES_FAVORABLE,
+                                  alfa = 0.5)
+#results
+table_sol <- list()
+for(name in names(results)){
+  table_sol[["Criterio"]] <- c(table_sol[["Criterio"]], results[[name]]$criterio)
+  table_sol[["Alternativa Optima"]] <- c(table_sol[["Alternativa Optima"]], results[[name]]$AlternativaOptima)
+}
+names(table_sol) <- c("Criterio", "Alternativa Optima")
+table_sol <- as.data.frame(table_sol)
+
+knitr::kable(table_sol)
+```
+#### Costes
+```{r}
+ES_FAVORABLE <- FALSE
+results <- computing_crit_results(tablaX = tabla1,
+                                  favorable = ES_FAVORABLE,
+                                  alfa = 0.5)
+#results
+table_sol <- list()
+for(name in names(results)){
+  table_sol[["Criterio"]] <- c(table_sol[["Criterio"]], results[[name]]$criterio)
+  table_sol[["Alternativa Optima"]] <- c(table_sol[["Alternativa Optima"]], results[[name]]$AlternativaOptima)
+}
+names(table_sol) <- c("Criterio", "Alternativa Optima")
+table_sol <- as.data.frame(table_sol)
+
+knitr::kable(table_sol)
+```
+
+
+## Problema 2
+### Enunciado
+
+Un agricultor di un remoto paesino ai piedi del volcan Vesuvio tiene que decidir qué hortalizas plantar en su campo. Cada hortaliza lleva asociado un precio de venta (€/kg), un número de unidades que pueden plantarse en el campo y un coeficiente que representa la probabilidad de supervivencia a un clima específico.
+
+```{r}
+vegetables <- data.frame(
+  name = c("Patata", "Tomate", "Berenjena", "Pimientos", "Calabacines", "Cebolla"),
+  price_per_kg = c(1.39, 2.40, 1.84, 3.12, 1.88, 1.86),
+  quantity = c(300, 240, 300, 400, 400, 300),
+  survival_coeff_clima1 = c(0.7, 0.3, 0.4, 0.5, 0.3, 0.9),
+  survival_coeff_clima2 = c(0.8, 0.5, 0.6, 0.7, 0.5, 0.8),
+  survival_coeff_clima3 = c(0.7, 0.8, 0.5, 0.6, 0.7, 07)
+)
+
+knitr::kable(vegetables)
+```
+
+En esa región hay cuatro condiciones climáticas posibles y por el cambio climatico no existe ningún modelo matemático en el que el agricultor pueda basarse para predecir el clima de la próxima temporada. Supongamos que el agricultor consigue vender todas las hortalizas que han sobrevivido en el momento de la cosecha. Cual hortalizas tiene que plantar el agricultor para maximizar su ganancia?
+
+### Solucion
+Construcion de la tabla decision
+```{r}
+temp <- NULL
+table_per_lines <- c()
+
+for(i in 1:6){
+  temp <- unlist(vegetables[i,4:6]*vegetables[i,2]*vegetables[i,3])
+  names(temp) <- NULL
+  table_per_lines <- c(table_per_lines, temp)
+}
+```
+
+Resolucion
+```{r}
+table <- crea.tablaX(table_per_lines, 
+                     numalternativas = 6,
+                     numestados = 3)
+
+criterio.Todos(table, alfa = 0.5)
+```
+
+

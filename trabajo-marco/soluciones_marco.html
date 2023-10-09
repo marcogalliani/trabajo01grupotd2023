@@ -11,7 +11,7 @@
 
 
 
-<title>Trabajo Marco</title>
+<title>Trabajo Marco: soluciones</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -207,83 +207,6 @@ window.buildTabsets = function(tocID) {
 };
 
 </script>
-<script>
-window.initializeCodeFolding = function(show) {
-
-  // handlers for show-all and hide all
-  $("#rmd-show-all-code").click(function() {
-    $('div.r-code-collapse').each(function() {
-      $(this).collapse('show');
-    });
-  });
-  $("#rmd-hide-all-code").click(function() {
-    $('div.r-code-collapse').each(function() {
-      $(this).collapse('hide');
-    });
-  });
-
-  // index for unique code element ids
-  var currentIndex = 1;
-
-  // select all R code blocks
-  var rCodeBlocks = $('pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan, pre.julia, pre.foldable');
-  rCodeBlocks.each(function() {
-    // skip if the block has fold-none class
-    if ($(this).hasClass('fold-none')) return;
-
-    // create a collapsable div to wrap the code in
-    var div = $('<div class="collapse r-code-collapse"></div>');
-    var showThis = (show || $(this).hasClass('fold-show')) && !$(this).hasClass('fold-hide');
-    var id = 'rcode-643E0F36' + currentIndex++;
-    div.attr('id', id);
-    $(this).before(div);
-    $(this).detach().appendTo(div);
-
-    // add a show code button right above
-    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Code') + '</span>');
-    var showCodeButton = $('<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm code-folding-btn pull-right float-right"></button>');
-    showCodeButton.append(showCodeText);
-    showCodeButton
-        .attr('data-toggle', 'collapse')
-        .attr('data-bs-toggle', 'collapse') // BS5
-        .attr('data-target', '#' + id)
-        .attr('data-bs-target', '#' + id)   // BS5
-        .attr('aria-expanded', showThis)
-        .attr('aria-controls', id);
-
-    var buttonRow = $('<div class="row"></div>');
-    var buttonCol = $('<div class="col-md-12"></div>');
-
-    buttonCol.append(showCodeButton);
-    buttonRow.append(buttonCol);
-
-    div.before(buttonRow);
-
-    // show the div if necessary
-    if (showThis) div.collapse('show');
-
-    // update state of button on show/hide
-    //   * Change text
-    //   * add a class for intermediate states styling
-    div.on('hide.bs.collapse', function () {
-      showCodeText.text('Code');
-      showCodeButton.addClass('btn-collapsing');
-    });
-    div.on('hidden.bs.collapse', function () {
-      showCodeButton.removeClass('btn-collapsing');
-    });
-    div.on('show.bs.collapse', function () {
-      showCodeText.text('Hide');
-      showCodeButton.addClass('btn-expanding');
-    });
-    div.on('shown.bs.collapse', function () {
-      showCodeButton.removeClass('btn-expanding');
-    });
-
-  });
-
-}
-</script>
 <style type="text/css">.hljs-literal {
 color: #990073;
 }
@@ -407,9 +330,6 @@ display: none;
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
 
 
@@ -426,27 +346,298 @@ display: none;
 
 <div id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+
+
+<h1 class="title toc-ignore">Trabajo Marco: soluciones</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#problema-1" id="toc-problema-1">Problema 1</a>
+<ul>
+<li><a href="#enunciado" id="toc-enunciado">Enunciado</a></li>
+<li><a href="#solucion" id="toc-solucion">Solucion</a></li>
+</ul></li>
+<li><a href="#problema-2" id="toc-problema-2">Problema 2</a>
+<ul>
+<li><a href="#enunciado-1" id="toc-enunciado-1">Enunciado</a></li>
+<li><a href="#solucion-1" id="toc-solucion-1">Solucion</a></li>
+</ul></li>
 </ul>
 </div>
 
+<div id="problema-1" class="section level2">
+<h2>Problema 1</h2>
+<div id="enunciado" class="section level3">
+<h3>Enunciado</h3>
+<pre class="r"><code>set.seed(05072000)
 
+n_states &lt;- 15
+n_alternativas &lt;- 5
 
-<h1 class="title toc-ignore">Trabajo Marco</h1>
-
+tabla1 &lt;- crea.tablaX(rexp(n_states*n_alternativas), 
+                    numalternativas = n_alternativas,
+                    numestados = n_states)
+knitr::kable(tabla1)</code></pre>
+<table style="width:100%;">
+<colgroup>
+<col width="1%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">e1</th>
+<th align="right">e2</th>
+<th align="right">e3</th>
+<th align="right">e4</th>
+<th align="right">e5</th>
+<th align="right">e6</th>
+<th align="right">e7</th>
+<th align="right">e8</th>
+<th align="right">e9</th>
+<th align="right">e10</th>
+<th align="right">e11</th>
+<th align="right">e12</th>
+<th align="right">e13</th>
+<th align="right">e14</th>
+<th align="right">e15</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">d1</td>
+<td align="right">1.9227956</td>
+<td align="right">1.0930421</td>
+<td align="right">0.5439560</td>
+<td align="right">0.3565044</td>
+<td align="right">1.8626272</td>
+<td align="right">0.8910948</td>
+<td align="right">0.0630385</td>
+<td align="right">0.9718176</td>
+<td align="right">1.4737807</td>
+<td align="right">0.7044855</td>
+<td align="right">3.1732797</td>
+<td align="right">1.5812022</td>
+<td align="right">5.7571905</td>
+<td align="right">0.0920660</td>
+<td align="right">0.3544414</td>
+</tr>
+<tr class="even">
+<td align="left">d2</td>
+<td align="right">1.8318082</td>
+<td align="right">0.1310732</td>
+<td align="right">0.7041387</td>
+<td align="right">0.4886055</td>
+<td align="right">0.6262955</td>
+<td align="right">3.0404385</td>
+<td align="right">1.4588033</td>
+<td align="right">0.3834669</td>
+<td align="right">0.3744587</td>
+<td align="right">0.0571306</td>
+<td align="right">0.6968438</td>
+<td align="right">0.6242158</td>
+<td align="right">1.3167732</td>
+<td align="right">0.6256910</td>
+<td align="right">1.1553158</td>
+</tr>
+<tr class="odd">
+<td align="left">d3</td>
+<td align="right">0.6514291</td>
+<td align="right">1.4039621</td>
+<td align="right">1.1438264</td>
+<td align="right">0.5095021</td>
+<td align="right">2.2848813</td>
+<td align="right">0.1072336</td>
+<td align="right">0.9498671</td>
+<td align="right">1.6185042</td>
+<td align="right">4.6941616</td>
+<td align="right">0.6971087</td>
+<td align="right">0.0822742</td>
+<td align="right">0.1551562</td>
+<td align="right">1.8982052</td>
+<td align="right">0.3072510</td>
+<td align="right">0.4218837</td>
+</tr>
+<tr class="even">
+<td align="left">d4</td>
+<td align="right">0.6186527</td>
+<td align="right">0.7807989</td>
+<td align="right">0.2393121</td>
+<td align="right">0.0566404</td>
+<td align="right">1.9735234</td>
+<td align="right">3.8549705</td>
+<td align="right">1.6076501</td>
+<td align="right">0.2206629</td>
+<td align="right">0.0222299</td>
+<td align="right">0.0836233</td>
+<td align="right">2.7721294</td>
+<td align="right">0.6670354</td>
+<td align="right">0.6040707</td>
+<td align="right">0.8712918</td>
+<td align="right">1.8199541</td>
+</tr>
+<tr class="odd">
+<td align="left">d5</td>
+<td align="right">2.6184566</td>
+<td align="right">0.0108124</td>
+<td align="right">0.6154374</td>
+<td align="right">0.9748607</td>
+<td align="right">0.4782562</td>
+<td align="right">2.0700479</td>
+<td align="right">0.5149331</td>
+<td align="right">0.4318253</td>
+<td align="right">0.1864729</td>
+<td align="right">0.8178796</td>
+<td align="right">0.3928252</td>
+<td align="right">1.5781050</td>
+<td align="right">0.1461145</td>
+<td align="right">0.1583122</td>
+<td align="right">0.6452146</td>
+</tr>
+</tbody>
+</table>
 </div>
+<div id="solucion" class="section level3">
+<h3>Solucion</h3>
+<pre class="r"><code>computing_crit_results &lt;- function(tablaX, favorable, alfa){
+  crit_results &lt;- list()
+  crit_results[[&quot;Wald&quot;]] &lt;- criterio.Wald(tablaX = tablaX, favorable = favorable)
+  crit_results[[&quot;Optimista&quot;]] &lt;- criterio.Optimista(tablaX = tablaX, favorable = favorable)
+  crit_results[[&quot;Hurwicz&quot;]] &lt;- criterio.Hurwicz(tablaX = tablaX, favorable = favorable,  alfa = alfa)
+  crit_results[[&quot;Laplace&quot;]] &lt;- criterio.Laplace(tablaX = tablaX, favorable = favorable)
+  crit_results[[&quot;Savage&quot;]] &lt;- criterio.Savage(tablaX = tablaX,favorable = favorable)
+  crit_results[[&quot;PuntoIdeal&quot;]] &lt;- criterio.PuntoIdeal(tablaX = tablaX, favorable = favorable)
+  return(crit_results)
+}</code></pre>
+<div id="beneficios" class="section level4">
+<h4>Beneficios</h4>
+<pre class="r"><code>ES_FAVORABLE &lt;- TRUE
+results &lt;- computing_crit_results(tablaX = tabla1,
+                                  favorable = ES_FAVORABLE,
+                                  alfa = 0.5)
+#results
+table_sol &lt;- list()
+for(name in names(results)){
+  table_sol[[&quot;Criterio&quot;]] &lt;- c(table_sol[[&quot;Criterio&quot;]], results[[name]]$criterio)
+  table_sol[[&quot;Alternativa Optima&quot;]] &lt;- c(table_sol[[&quot;Alternativa Optima&quot;]], results[[name]]$AlternativaOptima)
+}
+names(table_sol) &lt;- c(&quot;Criterio&quot;, &quot;Alternativa Optima&quot;)
+table_sol &lt;- as.data.frame(table_sol)
 
+knitr::kable(table_sol)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Criterio</th>
+<th align="right">Alternativa.Optima</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Wald</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Optimista</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Hurwicz</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Laplace</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Savage</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Punto Ideal</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="costes" class="section level4">
+<h4>Costes</h4>
+<pre class="r"><code>ES_FAVORABLE &lt;- FALSE
+results &lt;- computing_crit_results(tablaX = tabla1,
+                                  favorable = ES_FAVORABLE,
+                                  alfa = 0.5)
+#results
+table_sol &lt;- list()
+for(name in names(results)){
+  table_sol[[&quot;Criterio&quot;]] &lt;- c(table_sol[[&quot;Criterio&quot;]], results[[name]]$criterio)
+  table_sol[[&quot;Alternativa Optima&quot;]] &lt;- c(table_sol[[&quot;Alternativa Optima&quot;]], results[[name]]$AlternativaOptima)
+}
+names(table_sol) &lt;- c(&quot;Criterio&quot;, &quot;Alternativa Optima&quot;)
+table_sol &lt;- as.data.frame(table_sol)
 
-<div id="enunciado" class="section level2">
-<h2>Enunciado</h2>
-<p>Un agricultor tiene que decidir qué hortalizas plantar en su campo.
-Cada hortaliza lleva asociado un precio de venta (/kg), un número de
-unidades que pueden plantarse en el campo y un coeficiente que
-representa la supervivencia a un clima específico.</p>
+knitr::kable(table_sol)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Criterio</th>
+<th align="right">Alternativa.Optima</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Wald</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Optimista</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Hurwicz</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Laplace</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Savage</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Punto Ideal</td>
+<td align="right">5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="problema-2" class="section level2">
+<h2>Problema 2</h2>
+<div id="enunciado-1" class="section level3">
+<h3>Enunciado</h3>
+<p>Un agricultor di un remoto paesino ai piedi del volcan Vesuvio tiene
+que decidir qué hortalizas plantar en su campo. Cada hortaliza lleva
+asociado un precio de venta (€/kg), un número de unidades que pueden
+plantarse en el campo y un coeficiente que representa la probabilidad de
+supervivencia a un clima específico.</p>
 <pre class="r"><code>vegetables &lt;- data.frame(
   name = c(&quot;Patata&quot;, &quot;Tomate&quot;, &quot;Berenjena&quot;, &quot;Pimientos&quot;, &quot;Calabacines&quot;, &quot;Cebolla&quot;),
   price_per_kg = c(1.39, 2.40, 1.84, 3.12, 1.88, 1.86),
@@ -527,15 +718,47 @@ knitr::kable(vegetables)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>En esa región hay cuatro condiciones climáticas posibles y no existe
-ningún modelo matemático en el que el agricultor pueda basarse para
-predecir el clima de la próxima temporada. Supongamos que el agricultor
-consigue vender todas las hortalizas que han sobrevivido en el momento
-de la cosecha.</p>
-<p>Clima1: frio Clima2: medio Clima3: caliente</p>
+<p>En esa región hay cuatro condiciones climáticas posibles y por el
+cambio climatico no existe ningún modelo matemático en el que el
+agricultor pueda basarse para predecir el clima de la próxima temporada.
+Supongamos que el agricultor consigue vender todas las hortalizas que
+han sobrevivido en el momento de la cosecha. Cual hortalizas tiene que
+plantar el agricultor para maximizar su ganancia?</p>
 </div>
-<div id="resolucion" class="section level2">
-<h2>Resolucion</h2>
+<div id="solucion-1" class="section level3">
+<h3>Solucion</h3>
+<p>Construcion de la tabla decision</p>
+<pre class="r"><code>temp &lt;- NULL
+table_per_lines &lt;- c()
+
+for(i in 1:6){
+  temp &lt;- unlist(vegetables[i,4:6]*vegetables[i,2]*vegetables[i,3])
+  names(temp) &lt;- NULL
+  table_per_lines &lt;- c(table_per_lines, temp)
+}</code></pre>
+<p>Resolucion</p>
+<pre class="r"><code>table &lt;- crea.tablaX(table_per_lines, 
+                     numalternativas = 6,
+                     numestados = 3)
+
+criterio.Todos(table, alfa = 0.5)</code></pre>
+<pre><code>##                    e1    e2     e3  Wald Optimista Hurwicz Savage Laplace
+## d1              291.9 333.6  291.9 291.9     333.6   312.8 3614.1   305.8
+## d2              172.8 288.0  460.8 172.8     460.8   316.8 3445.2   307.2
+## d3              220.8 331.2  276.0 220.8     331.2   276.0 3630.0   276.0
+## d4              624.0 873.6  748.8 624.0     873.6   748.8 3157.2   748.8
+## d5              225.6 376.0  526.4 225.6     526.4   376.0 3379.6   376.0
+## d6              502.2 446.4 3906.0 446.4    3906.0  2176.2  427.2  1618.2
+## iAlt.Opt (fav.)    --    --     --    d4        d6      d6     d6      d6
+##                 Punto Ideal
+## d1                   3669.3
+## d2                   3523.6
+## d3                   3692.4
+## d4                   3157.2
+## d5                   3439.2
+## d6                    444.2
+## iAlt.Opt (fav.)          d6</code></pre>
+</div>
 </div>
 
 
@@ -571,11 +794,6 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
