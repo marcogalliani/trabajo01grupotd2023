@@ -78,7 +78,7 @@ knitr::kable(table_sol)
 ## Problema 2
 ### Enunciado
 
-Un agricultor di un remoto paesino ai piedi del volcan Vesuvio tiene que decidir qué hortalizas plantar en su campo. Cada hortaliza lleva asociado un precio de venta (€/kg), un número de unidades que pueden plantarse en el campo y un coeficiente que representa la probabilidad de supervivencia a un clima específico.
+Un agricultor de un remoto pueblo al pie del volcan Vesubio tiene que decidir qué hortalizas plantar en su campo. Cada hortaliza lleva asociado un precio de venta (€/kg), un número de unidades que pueden plantarse en el campo y un coeficiente que representa la probabilidad de supervivencia a un clima específico.
 
 ```{r}
 vegetables <- data.frame(
