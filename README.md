@@ -4,5 +4,5 @@ Este repositorio contiene el primero trabajo de grupo para el curso "Teoria de l
 ## Miembros del grupo 3
 - Jesus Manuel Falcon Garcia
 - Soledad Gallego Benot
-- Marco Galliani
+- Marco Galliani: https://github.com/marcogalliani/trabajo01indtd2023
 - Ferran Garcia Lopez 
