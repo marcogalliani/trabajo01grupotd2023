@@ -1,0 +1,127 @@
+---
+title: "Enunciados grupo"
+author: "Jesús Manuel Falcón García
+Marco Galliani
+Ferrán García López
+Soledad Gallego Benot"
+date: "2023-10-07"
+output: html_document
+---
+
+## Enunciados
+
+Este documento contiene los enunciados de los problemas creados por todos los componentes del grupo siguiendo las directrices de generar una tabla de decisión por parte de cada uno de ellos y un enunciado real. Los componentes son en cuestión:
+
+-   Jesús Manuel Falcón García
+-   Marco Galliani
+-   Ferrán García López
+-   Soledad Gallego Benot
+
+Para mayor comodidad, hemos considerado dividir los problemas en 2 secciones: tablas de decisión y enunciados que se refieran a situaciones reales
+
+## Tablas de decisión:
+
+```{r, echo=FALSE}
+library(knitr)
+source("teoriadecision_funciones_incertidumbre.R")
+tablaPb1 <- crea.tablaX(c(88,160,130,
+                          125,200,233,
+                          136,230,98,
+                          95,190,106), numalternativas = 4, numestados = 3)
+kable(tablaPb1)
+
+set.seed(26072001)
+tbl1 <- crea.tablaX(rpois(15*10, 21), 
+                    numalternativas = 15,
+                    numestados = 10)
+knitr::kable(tbl1)
+
+set.seed(05072000)
+
+n_states <- 11
+n_alternativas <- 5
+
+tabla1 <- crea.tablaX(rexp(n_states*n_alternativas), 
+                    numalternativas = n_alternativas,
+                    numestados = n_states)
+knitr::kable(tabla1)
+
+
+matriz2 = crea.tablaX(c(50, 100, 75,
+                        25, 75, 125,
+                        55, 80, 100), numalternativas = 3, numestados = 3)
+matriz2
+```
+
+## Enunciados referidos a situaciones reales:
+
+### Problema 1:
+
+Un estudiante con un nivel medio-avanzado en inglés, pero sin certificar, está considerando sacarse el título correspondiente para mejorar su currículum y tener mejores oportunidades académicas y laborales. Tiene la obligación de obtener alguna titulación para la obtención de su título de grado y está considerando las opciones de tratar de obtener un First Certificate (B2) o un Advanced Certificate (C1), ambos muy bien valorados.
+
+El examen correspondiente al nivel B2, junto con un curso asociado, cuesta 400€. Si aprueba este examen, se le concederá al estudiante una beca de 400€, lo que implica cubrir todos los gastos. Por otro lado, el examen correspondiente a C1, con su curso de preparación, tiene un coste superior: 600€. No obstante, la beca que se obtendría en caso de superar esta prueba alcanza los 1000€, otorgando un beneficio de 400€.
+
+Existe una tercera opción: un examen que contempla obtener un nivel u otro según la calificación que tenga el alumno, siempre y cuando lo apruebe. Su coste es de 900€, incluyendo el curso. Dado que no es lo mismo obtener un nivel u otro (B2 o C1), la beca varía en función del nivel que se alcanza. Si el estudiante obtiene, en esta modalidad de examen, un B2, la beca asciende a 1000€, dándole un beneficio de 100€. Si obtiene un C1, la beca es de 1150€, con un beneficio de 250€.
+
+Si tenemos en cuenta los beneficios que podría obtener el estudiante, ¿qué opción sería la más acertada teniendo en cuenta la incertidumbre asociada a su capacidad para aprobar o no los exámenes?
+
+### Problema 2:
+
+El coche lo pueden comprar en cuatro concesionarios distintos pero cada uno ofrece diferentes precios y términos por el mismo coche:
+
+1.  Concesionario RedWheel: les ofrece como mejor oferta por el coche una fianza de 10.000€ y un precio final de 30.000€
+2.  Concesionario ToyotaPower: les ofrece una fianza de 5.000€ y como precio final 40.000€
+3.  Concesionario FreeAutos: su mejor oferta es pagar una entrada de 10.000€ y como precio final 20.000€
+4.  Concesionario Route100: les ofrece no pagar fianza a cambio de un precio final de 50.000€
+
+Pero esto no es todo, ya que la decisión no es tan fácil porque dependiendo del concesionario la calidad del coche será muy diferente, ya que los del concesionario les pueden dar una de dos, o un coche de segunda mano que parece nuevo o un coche nuevo, así que Juan y Pedro han estimado los siguientes gastos que tendrían con el coche:
+
+Si coche fraude:
+
+1.  RedWheel: 500€ al año durante 15 años
+2.  ToyotaPower: 100€ al año durante 20 años
+3.  FreeAutos: 300€ al año por 25 años
+4.  Route100: 250€ al año por 10 años
+
+Si coche nuevo de verdad:
+
+1.  RedWheel: 50€ al año durante 5 años
+2.  ToyotaPower: 10€ al año durante 4 años
+3.  FreeAutos: 30€ al año por 2 años
+4.  Route100: 25€ al año por 3 años
+
+Teniendo en cuenta, que Juan piensa que no los van a engañar con el coche y Pedro quiere elegir la opción que les permita arrepentirse menos, ¿qué decidirá cada uno?
+
+### Problema 3:
+
+La empresa Jamestown se dedica a la inversión inmobiliaria construyendo, renovando y reacondicionando edificios. Recientemente ha adquirido por 2.000 euros el edificio de una antigua fábrica de bicicletas en el distrito de Schinkel, en Amsterdam. De momento no se han hecho modificaciones, sin embargo el propietario del edificio colindante está interesado en ampliar sus oficinas y ofrece 2.200 euros por el edificio.
+
+En caso de no vender, se plantea la posibilidad de renovar la fábrica y convertirla en un espacio de oficinas moderno o en viviendas. Los costes estimados de dichas reformas son 300 y 1.000 euros, respectivamente. Se estima que en condiciones normales el valor de mercado del edificio reformado aumentaría en 1.300 para las oficinas y 1.750 para las viviendas.
+
+Para tomar la decisión también se considera el contexto económico y urbanístico:
+
+-   El fenómeno *work-from-home* influye en la demanda de oficinas y no se sabe qué puede ocurrir en un futuro cercano:
+    -   Si la demanda de oficinas cae, el precio de venta de las oficinas disminuirá un 60%.
+    -   Si la demanda de oficinas se mantiene, el precio de venta de las oficinas se mantendrá.
+-   El ayuntamiento pretende renovar las calles e infraestructuras de la zona y se piensa que en un futuro próximo el barrio puede ser más atractivo, repercutiendo en los alquileres y por ende en las transacciones:
+    -   Si la percepción del barrio mejora, se podrán vender los inmuebles por un 30% más.
+    -   Si la percepción del barrio empeora, se podrán vender los inmuebles por un 30% menos.
+
+### Problema 4:
+
+Un agricultor de un remoto pueblo al pie del volcan Vesubio tiene que decidir qué hortalizas plantar en su campo. Cada hortaliza lleva asociado un precio de venta (€/kg), un número de unidades que pueden plantarse en el campo y un coeficiente que representa la probabilidad de supervivencia a un clima específico.
+
+```{r echo=FALSE}
+vegetables <- data.frame(
+  name = c("Patata", "Tomate", "Berenjena", "Pimientos", "Calabacines", "Cebolla"),
+  price_per_kg = c(1.39, 2.40, 1.84, 3.12, 1.88, 1.86),
+  quantity = c(300, 240, 300, 400, 400, 300),
+  survival_coeff_clima1 = c(0.7, 0.3, 0.4, 0.5, 0.3, 0.9),
+  survival_coeff_clima2 = c(0.8, 0.5, 0.6, 0.7, 0.5, 0.8),
+  survival_coeff_clima3 = c(0.7, 0.8, 0.5, 0.6, 0.7, 07)
+)
+
+knitr::kable(vegetables)
+```
+
+En esa región hay cuatro condiciones climáticas posibles y por el cambio climático no existe ningún modelo matemático en el que el agricultor pueda basarse para predecir el clima de la próxima temporada. Supongamos que el agricultor consigue vender todas las hortalizas que han sobrevivido en el momento de la cosecha. Cual hortalizas tiene que plantar el agricultor para maximizar su ganancia?
