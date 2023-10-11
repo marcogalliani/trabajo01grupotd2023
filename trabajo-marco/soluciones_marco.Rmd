@@ -83,11 +83,11 @@ Un agricultor de un remoto pueblo al pie del volcan Vesubio tiene que decidir qu
 ```{r}
 vegetables <- data.frame(
   name = c("Patata", "Tomate", "Berenjena", "Pimientos", "Calabacines", "Cebolla"),
-  price_per_kg = c(1.39, 2.40, 1.84, 3.12, 1.88, 1.86),
-  quantity = c(300, 240, 300, 400, 400, 300),
-  survival_coeff_clima1 = c(0.7, 0.3, 0.4, 0.5, 0.3, 0.9),
+  price_per_kg = c(1.39, 2.40, 1.84, 3.12, 1.88, 1.46),
+  quantity = c(300, 240, 300, 200, 300, 300),
+  survival_coeff_clima1 = c(0.7, 0.3, 0.4, 0.2, 0.3, 0.8),
   survival_coeff_clima2 = c(0.8, 0.5, 0.6, 0.7, 0.5, 0.8),
-  survival_coeff_clima3 = c(0.7, 0.8, 0.5, 0.6, 0.7, 07)
+  survival_coeff_clima3 = c(0.7, 0.8, 0.5, 0.6, 0.7, 0.8)
 )
 
 knitr::kable(vegetables)
@@ -114,7 +114,8 @@ table <- crea.tablaX(table_per_lines,
                      numalternativas = 6,
                      numestados = 3)
 
+dibuja.criterio.Hurwicz_Intervalos(tablaX = table)
 criterio.Todos(table, alfa = 0.5)
 ```
-
+La mejor opción para el agricultor es cultivar cebollas de acuerdo con todos los criterios de decision considerados, excepto por el criterio optimista y el criterio de Hurwicz con grado de optimismo mayor que 0.617. Si el agricultor es bastante optimista que las condiciones climaticas van a ser buenas entonces eligirà de cultivar tomate.
 
