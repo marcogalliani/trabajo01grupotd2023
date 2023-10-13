@@ -92,6 +92,20 @@ Si coche nuevo de verdad:
 
 Teniendo en cuenta, que Juan piensa que no los van a engañar con el coche y Pedro quiere elegir la opción que les permita arrepentirse menos, ¿qué decidirá cada uno?
 
+```{r echo=FALSE}
+matriz.costos = crea.tablaX(c(40000+500*15, 40000+50*5,
+                              45000+100*20, 45000+10*4,
+                              30000+3000*25, 30000+30*2,
+                              50000+250*10, 50000+25*3), numalternativas = 4,
+                            numestados = 2)
+matriz.costos
+
+rownames(matriz.costos) = c("RedWheel", "ToyotaPower", "FreeAutos", "Route100")
+
+decision.total = criterio.Todos(matriz.costos, 0.5, F)
+decision.total
+```
+
 ### Problema 3:
 
 La empresa Jamestown se dedica a la inversión inmobiliaria construyendo, renovando y reacondicionando edificios. Recientemente ha adquirido por 2.000 euros el edificio de una antigua fábrica de bicicletas en el distrito de Schinkel, en Amsterdam. De momento no se han hecho modificaciones, sin embargo el propietario del edificio colindante está interesado en ampliar sus oficinas y ofrece 2.200 euros por el edificio.
