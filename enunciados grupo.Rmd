@@ -2,7 +2,7 @@
 title: "Enunciados grupo"
 author: "Jesús Manuel Falcón García
 Marco Galliani
-Ferrán García López
+Ferran Garcia López
 Soledad Gallego Benot"
 date: "2023-10-07"
 output: html_document
@@ -14,7 +14,7 @@ Este documento contiene los enunciados de los problemas creados por todos los co
 
 -   Jesús Manuel Falcón García
 -   Marco Galliani
--   Ferrán García López
+-   Feran Garcia López
 -   Soledad Gallego Benot
 
 Para mayor comodidad, hemos considerado dividir los problemas en 2 secciones: tablas de decisión y enunciados que se refieran a situaciones reales
