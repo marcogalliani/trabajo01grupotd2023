@@ -1,12 +1,12 @@
 ---
 title: "Trabajo Marco: soluciones"
 output: 
-  html_document:
+  pdf_document:
     toc: TRUE
 ---
 
 ```{r setup, echo=FALSE}
-source("../include/teoriadecision_funciones_incertidumbre.R")
+source("../scripts/teoriadecision_funciones_incertidumbre.R")
 ```
 
 

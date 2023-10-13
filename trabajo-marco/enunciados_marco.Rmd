@@ -1,12 +1,14 @@
 ---
 title: "Trabajo Marco: enunciados"
-output: html_document
+output: 
+  pdf_document:
+    toc: TRUE
 ---
 
 ## Problema 1
 
 ```{r, echo=FALSE}
-source("../include/teoriadecision_funciones_incertidumbre.R")
+source("../scripts/teoriadecision_funciones_incertidumbre.R")
 
 set.seed(05072000)
 
