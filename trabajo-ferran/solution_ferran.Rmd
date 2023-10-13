@@ -25,7 +25,7 @@ En este documento se enuncian y resuelven dos problemas de decisión bajo incert
 
 ```{r}
 # definimos las funciones que usaremos
-source("scripts/teoriadecision_funciones_incertidumbre.R")
+source("../scripts/teoriadecision_funciones_incertidumbre.R")
 ```
 
 ---
