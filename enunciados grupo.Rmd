@@ -2,7 +2,7 @@
 title: "Enunciados grupo"
 author: "Jesús Manuel Falcón García
 Marco Galliani
-Ferrán García López
+Ferran Garcia López
 Soledad Gallego Benot"
 date: "2023-10-07"
 output: html_document
@@ -14,7 +14,7 @@ Este documento contiene los enunciados de los problemas creados por todos los co
 
 -   Jesús Manuel Falcón García
 -   Marco Galliani
--   Ferrán García López
+-   Feran Garcia López
 -   Soledad Gallego Benot
 
 Para mayor comodidad, hemos considerado dividir los problemas en 2 secciones: tablas de decisión y enunciados que se refieran a situaciones reales
@@ -91,6 +91,20 @@ Si coche nuevo de verdad:
 4.  Route100: 25€ al año por 3 años
 
 Teniendo en cuenta, que Juan piensa que no los van a engañar con el coche y Pedro quiere elegir la opción que les permita arrepentirse menos, ¿qué decidirá cada uno?
+
+```{r echo=FALSE}
+matriz.costos = crea.tablaX(c(40000+500*15, 40000+50*5,
+                              45000+100*20, 45000+10*4,
+                              30000+3000*25, 30000+30*2,
+                              50000+250*10, 50000+25*3), numalternativas = 4,
+                            numestados = 2)
+matriz.costos
+
+rownames(matriz.costos) = c("RedWheel", "ToyotaPower", "FreeAutos", "Route100")
+
+decision.total = criterio.Todos(matriz.costos, 0.5, F)
+decision.total
+```
 
 ### Problema 3:
 
