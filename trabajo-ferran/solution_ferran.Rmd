@@ -1,0 +1,289 @@
+---
+title: "Resolución de los problemas"
+author: "enferrofa@gmail.com"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+      toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+```
+
+---
+
+---
+
+## Introducción
+
+En este documento se enuncian y resuelven dos problemas de decisión bajo incertidumbre:
+
+ - En el primero: Se resuelve por separado con cada método de decisión a partir de una tabla inventada
+ - En el segundo: Se modeliza una situación real y se resuelve mediante la función que da todos los criterios bajo incertidumbre a la vez
+
+```{r}
+# definimos las funciones que usaremos
+source("scripts/teoriadecision_funciones_incertidumbre.R")
+```
+
+---
+
+---
+
+## Problema 1
+
+Se proporciona la siguiente tabla de decisión, cuyas filas representan alternativas y columnas estados de la naturaleza. Existe un único criterio de decisión. Se piden las decisiones bajo incertidumbre para todos los criterios tanto para criterios positivos *(queremos maximizar)* como negativos *(queremos minimizar)*.
+
+```{r, echo=FALSE}
+# aquí definimos la tabla de decisión
+set.seed(26072001)
+tbl1 <- crea.tablaX(rpois(15*10, 21), 
+                    numalternativas = 15,
+                    numestados = 10)
+kable(tbl1)
+```
+
+---
+
+### Criterios positivos
+
+```{r, echo=FALSE}
+# criterio optimista
+fav1 <- criterio.Optimista(tablaX = tbl1, 
+                   favorable = TRUE)
+
+cat("Usando el criterio", fav1$criterio, 
+    "la alternativa óptima es", names(fav1$AlternativaOptima), 
+    "con un valor de", fav1$ValorOptimo, "\n")
+```
+```{r, echo=FALSE}
+# criterio wald
+fav2 <- criterio.Wald(tablaX = tbl1,
+                      favorable = TRUE)
+
+cat("Usando el criterio", fav2$criterio, 
+    "la alternativa óptima es", names(fav2$AlternativaOptima), 
+    "con un valor de", fav2$ValorOptimo, "\n")
+```
+```{r, echo=FALSE}
+# criterio hurwicz
+fav3 <- criterio.Hurwicz(tablaX = tbl1,
+                         favorable = TRUE)
+
+cat("Usando el criterio", fav3$criterio, 
+    "con un alpha de", fav3$alfa,
+    "la alternativa óptima es", names(fav3$AlternativaOptima), 
+    "con un valor de", fav3$ValorOptimo, "\n")
+```
+```{r, echo=FALSE}
+# criterio laplace
+fav4 <- criterio.Laplace(tablaX = tbl1,
+                         favorable = TRUE)
+
+cat("Usando el criterio", fav4$criterio, 
+    "la alternativa óptima es", names(fav4$AlternativaOptima), 
+    "con un valor de", fav4$ValorOptimo, "\n")
+```
+```{r, echo=FALSE}
+# criterio laplace
+fav5 <- criterio.Savage(tablaX = tbl1,
+                        favorable = TRUE)
+
+cat("Usando el criterio", fav5$criterio, 
+    "la alternativa óptima es", names(fav5$AlternativaOptima), 
+    "con un valor de", fav5$ValorOptimo, "\n")
+```
+```{r, echo=FALSE}
+# criterio laplace
+fav6 <- criterio.PuntoIdeal(tablaX = tbl1,
+                            favorable = TRUE)
+
+cat("Usando el criterio", fav6$criterio, 
+    "la alternativa óptima es", names(fav6$AlternativaOptima), 
+    "con un valor de", fav6$ValorOptimo, "\n")
+```
+Recogiendo las decisiones de todos los criterios:
+
+```{r, echo=FALSE}
+fav <- cbind(criterio = c(fav1$criterio, fav2$criterio,
+                          paste(fav3$criterio, "con alpha de", fav3$alfa), 
+                          fav4$criterio, fav5$criterio, fav6$criterio), 
+             decision = c(paste(names(fav1$AlternativaOptima), collapse = ", "),
+                          paste(names(fav2$AlternativaOptima), collapse = ", "),
+                          paste(names(fav3$AlternativaOptima), collapse = ", "),
+                          paste(names(fav4$AlternativaOptima), collapse = ", "),
+                          paste(names(fav5$AlternativaOptima), collapse = ", "),
+                          paste(names(fav6$AlternativaOptima), collapse = ", ")),
+             valor = round(c(fav1$ValorOptimo, fav2$ValorOptimo,
+                             fav3$ValorOptimo, fav4$ValorOptimo,
+                             fav5$ValorOptimo, fav6$ValorOptimo), digits = 2))
+row.names(fav) <- NULL
+knitr::kable(fav)
+```
+
+
+---
+
+### Criterios negativos
+
+```{r, echo=FALSE}
+# criterio optimista
+fav1 <- criterio.Optimista(tablaX = tbl1, 
+                   favorable = FALSE)
+
+cat("Usando el criterio", fav1$criterio, 
+    "la alternativa óptima es", names(fav1$AlternativaOptima), 
+    "con un valor de", fav1$ValorOptimo, "\n")
+```
+
+```{r, echo=FALSE}
+# criterio wald
+fav2 <- criterio.Wald(tablaX = tbl1,
+                      favorable = FALSE)
+
+cat("Usando el criterio", fav2$criterio, 
+    "la alternativa óptima es", names(fav2$AlternativaOptima), 
+    "con un valor de", fav2$ValorOptimo, "\n")
+```
+
+```{r, echo=FALSE}
+# criterio hurwicz
+fav3 <- criterio.Hurwicz(tablaX = tbl1,
+                         favorable = FALSE)
+
+cat("Usando el criterio", fav3$criterio, 
+    "con un alpha de", fav3$alfa,
+    "la alternativa óptima es", names(fav3$AlternativaOptima), 
+    "con un valor de", fav3$ValorOptimo, "\n")
+```
+
+```{r, echo=FALSE}
+# criterio laplace
+fav4 <- criterio.Laplace(tablaX = tbl1,
+                         favorable = FALSE)
+
+cat("Usando el criterio", fav4$criterio, 
+    "la alternativa óptima es", names(fav4$AlternativaOptima), 
+    "con un valor de", fav4$ValorOptimo, "\n")
+```
+
+```{r, echo=FALSE}
+# criterio laplace
+fav5 <- criterio.Savage(tablaX = tbl1,
+                        favorable = FALSE)
+
+cat("Usando el criterio", fav5$criterio, 
+    "la alternativa óptima es", names(fav5$AlternativaOptima), 
+    "con un valor de", fav5$ValorOptimo, "\n")
+```
+
+```{r, echo=FALSE}
+# criterio laplace
+fav6 <- criterio.PuntoIdeal(tablaX = tbl1,
+                            favorable = FALSE)
+
+cat("Usando el criterio", fav6$criterio, 
+    "la alternativa óptima es", names(fav6$AlternativaOptima), 
+    "con un valor de", fav6$ValorOptimo, "\n")
+```
+Recogiendo las decisiones de todos los criterios:
+
+```{r, echo=FALSE}
+fav <- cbind(criterio = c(fav1$criterio, fav2$criterio,
+                          paste(fav3$criterio, "con alpha de", fav3$alfa), 
+                          fav4$criterio, fav5$criterio, fav6$criterio), 
+             decision = c(paste(names(fav1$AlternativaOptima), collapse = ", "),
+                          paste(names(fav2$AlternativaOptima), collapse = ", "),
+                          paste(names(fav3$AlternativaOptima), collapse = ", "),
+                          paste(names(fav4$AlternativaOptima), collapse = ", "),
+                          paste(names(fav5$AlternativaOptima), collapse = ", "),
+                          paste(names(fav6$AlternativaOptima), collapse = ", ")),
+             valor = round(c(fav1$ValorOptimo, fav2$ValorOptimo,
+                             fav3$ValorOptimo, fav4$ValorOptimo,
+                             fav5$ValorOptimo, fav6$ValorOptimo), digits = 2))
+row.names(fav) <- NULL
+knitr::kable(fav)
+```
+
+---
+
+---
+
+## Problema 2
+
+La empresa Jamestown se dedica a la inversión inmobiliaria construyendo, renovando y reacondicionando edificios. Recientemente ha adquirido por 2.000 euros el edificio de una antigua fábrica de bicicletas en el distrito de Schinkel, en Amsterdam. De momento no se han hecho modificaciones, sin embargo el propietario del edificio colindante está interesado en ampliar sus oficinas y ofrece 2.200 euros por el edificio. 
+
+En caso de no vender, se plantea la posibilidad de renovar la fábrica y convertirla en un espacio de oficinas moderno o en viviendas. Los costes estimados de dichas reformas son 300 y 1.000 euros, respectivamente. Se estima que en condiciones normales el valor de mercado del edificio reformado aumentaría en 1.300 para las oficinas y 1.750 para las viviendas.
+
+Para tomar la decisión también se considera el contexto económico y urbanístico:
+
+  - El fenómeno *work-from-home* influye en la demanda de oficinas y no se sabe qué puede ocurrir en un futuro cercano: 
+    + Si la demanda de oficinas cae, el precio de venta de las oficinas disminuirá un 60%.
+    + Si la demanda de oficinas se mantiene, el precio de venta de las oficinas se mantendrá.
+  
+  - El ayuntamiento pretende renovar las calles e infraestructuras de la zona y se piensa que en un futuro próximo el barrio puede ser más atractivo, repercutiendo en los alquileres y por ende en las transacciones:
+    + Si la percepción del barrio mejora, se podrán vender los inmuebles por un 30% más.
+    + Si la percepción del barrio empeora, se podrán vender los inmuebles por un 30% menos.
+
+---
+
+Primero identificamos las alternativas por las que nos podemos decidir:
+  
+  1. Vender la fábrica ahora
+  2. Reconvertir la fábrica en oficinas
+  3. Reconvertir la fábrica en viviendas
+  4. Esperar sin renovar y vender más tarde
+  
+Luego identificamos los estados de la naturaleza:
+
+  1. La demanda de oficinas se mantiene y el barrio es más atractivo
+  2. La demanda de las oficinas cae y el barrio es más atractivo
+  3. La demanda de las oficinas se mantiene y el barrio es menos atractivo
+  4. La demanda de las oficinas cae y el barrio es menos atractivo
+  
+Después definimos la matriz de decisión, cuyo criterio queremos maximizar:
+
+```{r}
+# DEFINIMOS LOS PARÁMETROS DE LA MATRIZ
+
+pc <- 2000 # precio de compra
+pv <- 2200 # precio de venta ahora
+
+bm <- 1.3 # factor precio si la percepción del barrio mejora
+be <- .7 # factor precio si la percepción del barrio empeora
+
+do <- .4 # factor precio de las oficinas si su demanda cae
+
+co <- 300 # coste oficinas
+apo <- 1000 # aumento de precio por reforma en oficinas
+  
+cv <- 1300 # coste viviendas
+apv <- 1750 # aumento de precio por reforma en viviendas
+```
+
+```{r}
+# DEFINIMOS LA MATRIZ
+
+tbl2 <- crea.tablaX(c(rep(pv - pc, 4),
+                 apo*bm - co, apo*do*bm - co, apo*be - co, apo*do*be - co,
+                 rep(apv*bm - cv, 2), rep(apv*be - cv, 2),
+                 rep(pc*(bm - 1), 2), rep(pc*(be - 1), 2)
+                 ), numalternativas = 4)
+kable(tbl2)
+```
+
+Resolvemos para todos los criterios:
+
+```{r, echo=FALSE}
+kable(criterio.Todos(tbl2)[,5:10])
+```
+
+Hay diferentes decisiones según que criterio se utilice. Si somos pesimistas, imaginando una mala percepción del barrio y una caíd de la demanda de oficinas, venderemos la fábrica ahora mismo asegurándonos un beneficio moderado. En cambio si somos optimistas nos pensaremos que la percepción del barrio mejorará y la demanda de oficinas se mantendrá así que reconvertiremos la fábrica en oficinas. Para el criterio de Hurwicz, si ponderamos el grado de optimismo según el grado de optimismo la decisión será o vender ahora (para los poco optimistas) o hacer oficinas (para los más optimistas), el grado de optimismo que hace indiferentes ambas decisiones está alrededor de 0.215. Para el reso de criterios que, minimizan el coste de oportunidad, consideran equiprobables todos los estados de la naturaleza o minimizan la distancia (con norma 1) hasta el punto ideal la decisión será construir viviendas.
+
+En conclusión, si no somos muy pesimistas, dudaríamos entre reconvertir la fábrica en oficinas o en viviendas.
+
+<!---
+definir función para encontrar raíces del criterio de hurwicz
+-->
