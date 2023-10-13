@@ -21,7 +21,7 @@ n_alternativas <- 5
 tabla1 <- crea.tablaX(rexp(n_states*n_alternativas), 
                     numalternativas = n_alternativas,
                     numestados = n_states)
-knitr::kable(tabla1)
+knitr::kable(tabla1, digits = 4)
 ```
 
 ### Solucion
@@ -117,5 +117,7 @@ table <- crea.tablaX(table_per_lines,
 dibuja.criterio.Hurwicz_Intervalos(tablaX = table)
 criterio.Todos(table, alfa = 0.5)
 ```
+### Decision
+
 La mejor opción para el agricultor es cultivar cebollas de acuerdo con todos los criterios de decision considerados, excepto por el criterio optimista y el criterio de Hurwicz con grado de optimismo mayor que 0.617. Si el agricultor es bastante optimista que las condiciones climaticas van a ser buenas entonces eligirà de cultivar tomate.
 

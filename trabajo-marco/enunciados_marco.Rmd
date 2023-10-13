@@ -18,7 +18,7 @@ n_alternativas <- 5
 tabla1 <- crea.tablaX(rexp(n_states*n_alternativas), 
                     numalternativas = n_alternativas,
                     numestados = n_states)
-knitr::kable(tabla1)
+knitr::kable(tabla1, digits = 4)
 ```
 
 
