@@ -1,16 +1,23 @@
 ---
 title: "Enunciados junto con las soluciones"
-author: "Soledad Gallego Benot"
-output: html_document
+author: "Jesús Manuel Falcón García, Marco Galliani, Ferran Garcia López, Soledad Gallego Benot"
+output: 
+  html_document:
+    toc: TRUE
+  
 ---
+
+```{r sttings, echo=FALSE}
+library(knitr)
+source("scripts/teoriadecision_funciones_incertidumbre.R")
+```
+
 
 ## Tablas de decisión:
 
--   *TABLA (A)*:
+### TABLA (A):
 
 ```{r, echo=FALSE}
-library(knitr)
-source("teoriadecision_funciones_incertidumbre.R")
 tablaPb1 <- crea.tablaX(c(88,160,130,
                           125,200,233,
                           136,230,98,
@@ -56,8 +63,7 @@ criterio.PuntoIdeal(tablaPb1, T)
 #El criterio del Punto Ideal es coincidente con los anteriores
 ```
 
-**CONCLUSIÓN**: Podemos concluir, por lo tanto, que en situación favorable, es decir, tratándose de ganancias o beneficios, todos los criterios coinciden en que la mejor opción dada la anterior matriz de decisión es la d2 
-
+**CONCLUSIÓN**: Podemos concluir, por lo tanto, que en situación favorable, es decir, tratándose de ganancias o beneficios, todos los criterios coinciden en que la mejor opción dada la anterior matriz de decisión es la d2
 
 #### Solución en caso desfavorable:
 
@@ -103,23 +109,25 @@ criterio.PuntoIdeal(tablaPb1, favorable = F)
 
 **Conclusión**: Dado que la mayoría de los criterios consideran d1 como la opción más apropiada y que los que no lo hacen la consideran como segunda mejor alternativa y con muy poca diferencia con respecto a la que sería su alternativa óptima (d4), la opción óptima final sería d1.
 
-* *TABLA (B)*:
-```{r, echo=false}
+### TABLA (B):
+
+```{r, echo=FALSE}
 set.seed(26072001)
+
 tbl1 <- crea.tablaX(rpois(15*10, 21), 
                     numalternativas = 15,
                     numestados = 10)
 knitr::kable(tbl1)
-
 ```
 
 *Solución Tabla (b)*:
+#### Solución en caso favorable:
 
+#### Solución en caso desfavorable:
 
-* *TABLA (C)*:
+### TABLA (C):
 
 ```{r, echo=FALSE}
-
 set.seed(05072000)
 
 n_states <- 11
@@ -131,13 +139,61 @@ tabla1 <- crea.tablaX(rexp(n_states*n_alternativas),
 knitr::kable(tabla1)
 
 ```
+
 *Solución Tabla (C)*:
 
+```{r, echo=FALSE}
+computing_crit_results <- function(tablaX, favorable, alfa){
+  crit_results <- list()
+  crit_results[["Wald"]] <- criterio.Wald(tablaX = tablaX, favorable = favorable)
+  crit_results[["Optimista"]] <- criterio.Optimista(tablaX = tablaX, favorable = favorable)
+  crit_results[["Hurwicz"]] <- criterio.Hurwicz(tablaX = tablaX, favorable = favorable,  alfa = alfa)
+  crit_results[["Laplace"]] <- criterio.Laplace(tablaX = tablaX, favorable = favorable)
+  crit_results[["Savage"]] <- criterio.Savage(tablaX = tablaX,favorable = favorable)
+  crit_results[["PuntoIdeal"]] <- criterio.PuntoIdeal(tablaX = tablaX, favorable = favorable)
+  return(crit_results)
+}
+```
+
 #### Solución en caso favorable:
+```{r}
+ES_FAVORABLE <- TRUE
+results <- computing_crit_results(tablaX = tabla1,
+                                  favorable = ES_FAVORABLE,
+                                  alfa = 0.5)
+#results
+table_sol <- list()
+for(name in names(results)){
+  table_sol[["Criterio"]] <- c(table_sol[["Criterio"]], results[[name]]$criterio)
+  table_sol[["Alternativa Optima"]] <- c(table_sol[["Alternativa Optima"]], results[[name]]$AlternativaOptima)
+}
+names(table_sol) <- c("Criterio", "Alternativa Optima")
+table_sol <- as.data.frame(table_sol)
+
+knitr::kable(table_sol)
+```
+
 
 #### Solución en caso desfavorable:
+```{r}
+ES_FAVORABLE <- FALSE
+results <- computing_crit_results(tablaX = tabla1,
+                                  favorable = ES_FAVORABLE,
+                                  alfa = 0.5)
+#results
+table_sol <- list()
+for(name in names(results)){
+  table_sol[["Criterio"]] <- c(table_sol[["Criterio"]], results[[name]]$criterio)
+  table_sol[["Alternativa Optima"]] <- c(table_sol[["Alternativa Optima"]], results[[name]]$AlternativaOptima)
+}
+names(table_sol) <- c("Criterio", "Alternativa Optima")
+table_sol <- as.data.frame(table_sol)
 
-* *TABLA (D)*: 
+knitr::kable(table_sol)
+```
+
+
+### TABLA (D):
 
 ```{r, echo=FALSE}
 matriz2 = crea.tablaX(c(50, 100, 75,
@@ -152,7 +208,7 @@ kable(matriz2)
 
 #### Solución en caso desfavorable:
 
-\newpage 
+\newpage
 
 ## Enunciados referidos a situaciones reales:
 
@@ -167,6 +223,7 @@ Existe una tercera opción: un examen que contempla obtener un nivel u otro seg�
 Si tenemos en cuenta los beneficios que podría obtener el estudiante, ¿qué opción sería la más acertada teniendo en cuenta la incertidumbre asociada a su capacidad para aprobar o no los exámenes?
 
 **Solución**:
+
 ```{r, echo=FALSE}
 tablaPb2 <- crea.tablaX(c(-400, 0, 0,
                           -600, 400, 400,
@@ -179,9 +236,9 @@ kable(criterio.Todos(tablaPb2, favorable = T, alfa=0.35))
 
 ```
 
-* **Conclusión**: La mayoría de los criterios considera que realizar el C1 es lo mejor que el estudiante puede hacer a nivel económico. El criterio pesimista o criterio de Wald, tal y cómo su propio nombre indica, cree que tratar de obtener el B2 es la mejor alternativa dado que en caso de suspender es el que menos coste tiene. Con el alfa=0.3 por defecto, el criterio de Hurwicz apoya más el B2 por la misma razón que lo hace Wald. Sin embargo, si aumentamos lo mínimo alfa, por ejemplo a 0.35, el criterio de Hurwicz coincide con los demás criterios en que la opción más ventajosa es el examen de C1.
+-   **Conclusión**: La mayoría de los criterios considera que realizar el C1 es lo mejor que el estudiante puede hacer a nivel económico. El criterio pesimista o criterio de Wald, tal y cómo su propio nombre indica, cree que tratar de obtener el B2 es la mejor alternativa dado que en caso de suspender es el que menos coste tiene. Con el alfa=0.3 por defecto, el criterio de Hurwicz apoya más el B2 por la misma razón que lo hace Wald. Sin embargo, si aumentamos lo mínimo alfa, por ejemplo a 0.35, el criterio de Hurwicz coincide con los demás criterios en que la opción más ventajosa es el examen de C1.
 
-#Por tanto, realizar el examen de C1 es la alternativa más acertada para el estudiante.
+Por tanto, realizar el examen de C1 es la alternativa más acertada para el estudiante.
 
 ### Problema 2:
 
@@ -243,3 +300,29 @@ knitr::kable(vegetables)
 ```
 
 En esa región hay cuatro condiciones climáticas posibles y por el cambio climático no existe ningún modelo matemático en el que el agricultor pueda basarse para predecir el clima de la próxima temporada. Supongamos que el agricultor consigue vender todas las hortalizas que han sobrevivido en el momento de la cosecha. Cual hortalizas tiene que plantar el agricultor para maximizar su ganancia?
+
+**Solucion:**
+Construcion de la tabla decision
+```{r}
+temp <- NULL
+table_per_lines <- c()
+
+for(i in 1:6){
+  temp <- unlist(vegetables[i,4:6]*vegetables[i,2]*vegetables[i,3])
+  names(temp) <- NULL
+  table_per_lines <- c(table_per_lines, temp)
+}
+```
+
+Resolucion
+```{r}
+table <- crea.tablaX(table_per_lines, 
+                     numalternativas = 6,
+                     numestados = 3)
+
+dibuja.criterio.Hurwicz_Intervalos(tablaX = table)
+criterio.Todos(table, alfa = 0.5)
+```
+
+**Conclusion:**
+La mejor opción para el agricultor es cultivar cebollas de acuerdo con todos los criterios de decision considerados, excepto por el criterio optimista y el criterio de Hurwicz con grado de optimismo mayor que 0.617. Si el agricultor es bastante optimista que las condiciones climaticas van a ser buenas entonces eligirà de cultivar tomate.
