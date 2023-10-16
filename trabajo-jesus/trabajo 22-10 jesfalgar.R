@@ -61,7 +61,7 @@
 #(d4, e1) -> 50.000 + 250*10
 #(d4, e2) -> 50.000 + 25*3
 
-source("teoriadecision_funciones_incertidumbre.R")
+source("../scripts/teoriadecision_funciones_incertidumbre.R")
 #para tener acceso a las funciones de ese archivo y poder aplicar los criterios
 
 matriz.costos = crea.tablaX(c(40000+500*15, 40000+50*5,
