@@ -205,8 +205,68 @@ kable(matriz2)
 *Solución tabla (d)*:
 
 #### Solución en caso favorable:
+```{r}
+decision1 = criterio.Hurwicz(matriz2, alfa = 0.5, favorable = T)
+decision1
+#la mejor decisión es la d3 alcanzando valor óptimo 77.5
+
+decision2 = criterio.Hurwicz.General(matriz2, alfa = 0.5, favorable = T)
+decision2
+#mismo resultado 
+
+decision3 = criterio.Laplace(matriz2, favorable = T)
+decision3
+#la mejor decisión es la d3 alcanzando valor óptimo 78.33
+
+decision4 = criterio.Optimista(matriz2, favorable = T)
+decision4
+#la mejor decisión es la d4 alcanzando valor óptimo 125
+
+decision5 = criterio.PuntoIdeal(matriz2, favorable = T)
+decision5
+#la mejor decisión es la d3 alcanzando valor óptimo 32.01562
+
+decision6 = criterio.Savage(matriz2, favorable = T)
+decision6
+#la mejor decisión es la d3 alcanzando valor óptimo 25
+
+decision7 = criterio.Wald(matriz2, favorable = T)
+decision7
+#la mejor decisión es la d3 alcanzando valor óptimo 55
+```
+
 
 #### Solución en caso desfavorable:
+```{r}
+decision1F = criterio.Hurwicz(matriz2, alfa = 0.5, favorable = F)
+decision1F
+#la mejor decisión es la d2 alcanzando valor óptimo 75
+
+decision2F = criterio.Hurwicz.General(matriz2, alfa = 0.5, favorable = F)
+decision2F
+#mismo resultado 
+
+decision3F = criterio.Laplace(matriz2, favorable = F)
+decision3F
+#la mejor decisión es la d2 alcanzando valor óptimo 75
+
+decision4F = criterio.Optimista(matriz2, favorable = F)
+decision4F
+#la mejor decisión es la d2 alcanzando valor óptimo 25
+
+decision5F = criterio.PuntoIdeal(matriz2, favorable = F)
+decision5F
+#la mejor decisión es la d1 alcanzando valor óptimo 35.35534
+
+decision6F = criterio.Savage(matriz2, favorable = F)
+decision6F
+#la mejor decisión es la d1 alcanzando valor óptimo 25
+
+decision7F = criterio.Wald(matriz2, favorable = F)
+decision7F
+#la mejor decisión es la d3 alcanzando valor óptimo 100
+```
+
 
 \newpage
 
@@ -266,6 +326,63 @@ Si coche nuevo de verdad:
 4.  Route100: 25€ al año por 3 años
 
 Teniendo en cuenta, que Juan piensa que no los van a engañar con el coche y Pedro quiere elegir la opción que les permita arrepentirse menos, ¿qué decidirá cada uno?
+
+```{r}
+source("scripts/teoriadecision_funciones_incertidumbre.R")
+#para tener acceso a las funciones de ese archivo y poder aplicar los criterios
+
+matriz.costos = crea.tablaX(c(40000+500*15, 40000+50*5,
+                              45000+100*20, 45000+10*4,
+                              30000+3000*25, 30000+30*2,
+                              50000+250*10, 50000+25*3), numalternativas = 4,
+                            numestados = 2)
+matriz.costos
+
+rownames(matriz.costos) = c("RedWheel", "ToyotaPower", "FreeAutos", "Route100")
+
+decision.Juan = criterio.Optimista(matriz.costos, F) #la F es para indicar que no es
+#una matriz de datos favorables sino de costes, para la decisión de Juan hay que 
+#aplicar este criterio porque se corresponde con la actitud optimista de Juan
+decision.Juan
+
+#vemos que Juan optará por comprar el coche en el concesionario FreeAutos,
+#alcanzado un valor óptimo de 30.060€
+
+#estudiamos también el caso opuesto, es decir, si fuera pesimista:
+
+decision.Juan2 = criterio.Wald(matriz.costos, F)
+decision.Juan2
+#en este caso Juan escogería el concesionario ToyotaPower y el valor óptimo 
+#que obtendría sería de 47.000€
+
+decision.Pedro = criterio.Savage(matriz.costos, F) #aplicamos este criterio para 
+#Pedro ya que quiere la opción que le haga arrepentirse menos
+
+decision.Pedro
+#vemos que Pedro se decantará por el concesionario RedWheel, teniendo valor óptimo
+# de 10.190€
+
+decision.total = criterio.Todos(matriz.costos, 0.5, F)
+decision.total
+#aquí vemos que en general la mejor opción con alfa 
+#de 0.5 es la del concesionario FreeAutos 
+#seguido del Route100
+
+decision.total = criterio.Todos(matriz.costos, 0.1, F)
+decision.total
+#aquí vemos que en general la mejor opción cambiando el valor de alfa 
+#a 0.5 es la del concesionario RedWheel
+
+decision.total = criterio.Todos(matriz.costos, 0.9, F)
+decision.total
+#y por último con otro valor de alfa, esta vez 0.9, vemos que
+#prácticamente hay un empate entre FreeAutos y RedWheel
+
+##Como conclusiones finales podemos decir que en general el 
+#concesionario Route100 es el peor mientras que RedWheel y FreeAutos están
+#prácticamente empatados como la mejor opción
+```
+
 
 ### Problema 3:
 
