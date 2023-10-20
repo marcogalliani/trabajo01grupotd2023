@@ -327,7 +327,7 @@ table_sol <- as.data.frame(table_sol)
 
 knitr::kable(table_sol)
 ```
-
+La alternativa optima por todo los criterios es 2, excepto por el criterio de Savage que elige la alternativa 4. El criterio de Savage trata de minimizar el arrepentimiento. Si somos interesados a minimizar el arrepentimiento eligiremos la alternativa 4.
 
 #### Solución en caso desfavorable:
 ```{r}
@@ -346,7 +346,11 @@ table_sol <- as.data.frame(table_sol)
 
 knitr::kable(table_sol)
 ```
-
+La alternativa optima es la 3 por todos los criterio, excepto por el criterio optimista.
+```{r}
+dibuja.criterio.Hurwicz_Intervalos(tabla1, favorable = F)
+```
+Para un alfa mayor que $0.986$ el criterio de Hurwicz tambien elige la alternativa 5. El grado de optimismo para eligir la alternativa es muy alto
 
 ### TABLA (D): Jesús Manuel Falcón García
 
@@ -615,11 +619,11 @@ Un agricultor de un remoto pueblo al pie del volcan Vesubio tiene que decidir qu
 ```{r echo=FALSE}
 vegetables <- data.frame(
   name = c("Patata", "Tomate", "Berenjena", "Pimientos", "Calabacines", "Cebolla"),
-  price_per_kg = c(1.39, 2.40, 1.84, 3.12, 1.88, 1.86),
-  quantity = c(300, 240, 300, 400, 400, 300),
-  survival_coeff_clima1 = c(0.7, 0.3, 0.4, 0.5, 0.3, 0.9),
+  price_per_kg = c(1.39, 2.40, 1.84, 3.12, 1.88, 1.46),
+  quantity = c(300, 240, 300, 200, 300, 300),
+  survival_coeff_clima1 = c(0.7, 0.3, 0.4, 0.2, 0.3, 0.8),
   survival_coeff_clima2 = c(0.8, 0.5, 0.6, 0.7, 0.5, 0.8),
-  survival_coeff_clima3 = c(0.7, 0.8, 0.5, 0.6, 0.7, 07)
+  survival_coeff_clima3 = c(0.7, 0.8, 0.5, 0.6, 0.7, 0.8)
 )
 
 knitr::kable(vegetables)
@@ -651,4 +655,4 @@ criterio.Todos(table, alfa = 0.5)
 ```
 
 **Conclusion:**
-La mejor opción para el agricultor es cultivar cebollas de acuerdo con todos los criterios de decision considerados, excepto por el criterio optimista y el criterio de Hurwicz con grado de optimismo mayor que 0.617. Si el agricultor es bastante optimista que las condiciones climaticas van a ser buenas entonces eligirà de cultivar tomate de acuerdo con el criterio de Hurwictz.
+La mejor opción para el agricultor es cultivar cebollas de acuerdo con todos los criterios de decision considerados, excepto por el criterio optimista y el criterio de Hurwicz con grado de optimismo mayor que 0.617. Si el agricultor es bastante optimista que las condiciones climaticas van a ser buenas entonces eligirà de cultivar tomate por el criterio de Hurwicz y el criterio optimista. 

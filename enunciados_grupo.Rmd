@@ -26,7 +26,7 @@ Para mayor comodidad, hemos considerado dividir los problemas en 2 secciones: ta
 
 ## Tablas de decisión
 
-### TABLA (A)
+### TABLA (A): Soledad Gallego Benot
 
 ```{r, echo=FALSE}
 tablaPb1 <- crea.tablaX(c(88,160,130,
@@ -36,7 +36,7 @@ tablaPb1 <- crea.tablaX(c(88,160,130,
 kable(tablaPb1)
 ```
 
-### TABLA (B)
+### TABLA (B): Feran Garcia López
 ```{r, echo=FALSE}
 set.seed(26072001)
 tbl1 <- crea.tablaX(rpois(15*10, 21), 
@@ -45,7 +45,7 @@ tbl1 <- crea.tablaX(rpois(15*10, 21),
 knitr::kable(tbl1)
 ```
 
-### TABLA (C)
+### TABLA (C): Marco Galliani
 ```{r, echo=FALSE}
 set.seed(05072000)
 
@@ -58,7 +58,7 @@ tabla1 <- crea.tablaX(rexp(n_states*n_alternativas),
 knitr::kable(tabla1, digits = 4)
 ```
 
-### TABLA (D)
+### TABLA (D): Jesús Manuel Falcón García
 ```{r, echo=FALSE}
 matriz2 = crea.tablaX(c(50, 100, 75,
                         25, 75, 125,
@@ -67,7 +67,7 @@ kable(matriz2)
 ```
 
 ## Enunciados referidos a situaciones reales
-### Problema 1
+### Problema 1: Soledad Gallego Benot
 
 Un estudiante con un nivel medio-avanzado en inglés, pero sin certificar, está considerando sacarse el título correspondiente para mejorar su currículum y tener mejores oportunidades académicas y laborales. Tiene la obligación de obtener alguna titulación para la obtención de su título de grado y está considerando las opciones de tratar de obtener un First Certificate (B2) o un Advanced Certificate (C1), ambos muy bien valorados.
 
@@ -77,7 +77,7 @@ Existe una tercera opción: un examen que contempla obtener un nivel u otro seg�
 
 Si tenemos en cuenta los beneficios que podría obtener el estudiante, ¿qué opción sería la más acertada teniendo en cuenta la incertidumbre asociada a su capacidad para aprobar o no los exámenes?
 
-### Problema 2
+### Problema 2: Jesús Manuel Falcón García
 
 El coche lo pueden comprar en cuatro concesionarios distintos pero cada uno ofrece diferentes precios y términos por el mismo coche:
 
@@ -118,7 +118,7 @@ decision.total = criterio.Todos(matriz.costos, 0.5, F)
 decision.total
 ```
 
-### Problema 3
+### Problema 3: Feran Garcia López
 
 La empresa Jamestown se dedica a la inversión inmobiliaria construyendo, renovando y reacondicionando edificios. Recientemente ha adquirido por 2.000 euros el edificio de una antigua fábrica de bicicletas en el distrito de Schinkel, en Amsterdam. De momento no se han hecho modificaciones, sin embargo el propietario del edificio colindante está interesado en ampliar sus oficinas y ofrece 2.200 euros por el edificio.
 
@@ -133,7 +133,7 @@ Para tomar la decisión también se considera el contexto económico y urbaníst
     -   Si la percepción del barrio mejora, se podrán vender los inmuebles por un 30% más.
     -   Si la percepción del barrio empeora, se podrán vender los inmuebles por un 30% menos.
 
-### Problema 4
+### Problema 4: Marco Galliani
 
 Un agricultor de un remoto pueblo al pie del volcan Vesubio tiene que decidir qué hortalizas plantar en su campo. Cada hortaliza lleva asociado un precio de venta (€/kg), un número de unidades que pueden plantarse en el campo y un coeficiente que representa la probabilidad de supervivencia a un clima específico.
 
